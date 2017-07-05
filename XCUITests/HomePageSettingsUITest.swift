@@ -82,9 +82,17 @@ class HomePageSettingsUITests: BaseTestCase {
         app.textFields["url"].press(forDuration: 5)
         app.buttons["Copy Address"].tap()
 
+        
         // Go to HomePage settings and paste it using the option Used Copied Link
-        navigator.goto(SettingsScreen)
-        navigator.goto(HomePageSettings)
+        if isiPad() == true {
+            app.buttons["TopTabsViewController.tabsButton"].tap()
+            app.buttons["TabTrayController.menuButton"].tap()
+            app.collectionViews.cells["SettingsMenuItem"].tap()
+            app.tables["AppSettingsTableViewController.tableView"].staticTexts["Homepage"].tap()
+        } else {
+            navigator.goto(SettingsScreen)
+            navigator.goto(HomePageSettings)
+        }
         XCTAssertTrue(app.cells["Use Copied Link"].isEnabled)
         app.cells["Use Copied Link"].tap()
 
@@ -104,7 +112,14 @@ class HomePageSettingsUITests: BaseTestCase {
 
         // Go to HomePage settings and check that it is not possible to copy it into the set webpage field
         navigator.nowAt(BrowserTab)
-        navigator.goto(HomePageSettings)
+        if isiPad() == true {
+            app.buttons["TopTabsViewController.tabsButton"].tap()
+            app.buttons["TabTrayController.menuButton"].tap()
+            app.collectionViews.cells["SettingsMenuItem"].tap()
+            app.tables["AppSettingsTableViewController.tableView"].staticTexts["Homepage"].tap()
+        } else {
+            navigator.goto(HomePageSettings)
+        }
         waitforExistence(app.staticTexts["Use Copied Link"])
 
         // Check that nothing is copied in the Set webpage field

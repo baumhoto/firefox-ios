@@ -51,9 +51,18 @@ class ReaderViewTest: BaseTestCase {
         navigator.nowAt(NewTabScreen)
         // Add item to reading list and check that it appears
         addContentToReaderView()
-        navigator.goto(NewTabScreen)
+        if isiPad() == true {
+            app.buttons["TopTabsViewController.tabsButton"].tap()
+            app.buttons["TabTrayController.addTabButton"].tap()
+        } else {
+            navigator.goto(NewTabScreen)
+        }
         waitforExistence(app.buttons["HomePanels.ReadingList"])
-        navigator.goto(HomePanel_ReadingList)
+        if isiPad() == true {
+            XCUIApplication().buttons["HomePanels.ReadingList"].tap()
+        } else {
+            navigator.goto(HomePanel_ReadingList)
+        }
 
         // Check that there is one item
         let savedToReadingList = app.tables["ReadingTable"].cells.staticTexts["The Book of Mozilla"]
@@ -85,9 +94,19 @@ class ReaderViewTest: BaseTestCase {
         waitforExistence(app.buttons["Add to Reading List"])
 
         // Go to reader list view to check that there is not any item there
-        navigator.goto(NewTabScreen)
+        
+        if isiPad() == true {
+            app.buttons["TopTabsViewController.tabsButton"].tap()
+            app.buttons["TabTrayController.addTabButton"].tap()
+        } else {
+            navigator.goto(NewTabScreen)
+        }
         waitforExistence(app.buttons["HomePanels.ReadingList"])
-        navigator.goto(HomePanel_ReadingList)
+        if isiPad() == true {
+            XCUIApplication().buttons["HomePanels.ReadingList"].tap()
+        } else {
+            navigator.goto(HomePanel_ReadingList)
+        }
 
         let readingtableTable = app.tables["ReadingTable"]
         waitforExistence(readingtableTable)
@@ -97,9 +116,18 @@ class ReaderViewTest: BaseTestCase {
 
     func testMarkAsReadAndUnreadFromReadingList() {
         addContentToReaderView()
-        navigator.goto(NewTabScreen)
+        if isiPad() == true {
+            app.buttons["TopTabsViewController.tabsButton"].tap()
+            app.buttons["TabTrayController.addTabButton"].tap()
+        } else {
+            navigator.goto(NewTabScreen)
+        }
         waitforExistence(app.buttons["HomePanels.ReadingList"])
-        navigator.goto(HomePanel_ReadingList)
+        if isiPad() == true {
+            XCUIApplication().buttons["HomePanels.ReadingList"].tap()
+        } else {
+            navigator.goto(HomePanel_ReadingList)
+        }
 
         // Check that there is one item
         let savedToReadingList = app.tables["ReadingTable"].cells.staticTexts["The Book of Mozilla"]
@@ -115,9 +143,18 @@ class ReaderViewTest: BaseTestCase {
 
     func testRemoveFromReadingList() {
         addContentToReaderView()
-        navigator.goto(NewTabScreen)
+        if isiPad() == true {
+            app.buttons["TopTabsViewController.tabsButton"].tap()
+            app.buttons["TabTrayController.addTabButton"].tap()
+        } else {
+            navigator.goto(NewTabScreen)
+        }
         waitforExistence(app.buttons["HomePanels.ReadingList"])
-        navigator.goto(HomePanel_ReadingList)
+        if isiPad() == true {
+            XCUIApplication().buttons["HomePanels.ReadingList"].tap()
+        } else {
+            navigator.goto(HomePanel_ReadingList)
+        }
 
         let savedToReadingList = app.tables["ReadingTable"].cells.staticTexts["The Book of Mozilla"]
         savedToReadingList.swipeLeft()

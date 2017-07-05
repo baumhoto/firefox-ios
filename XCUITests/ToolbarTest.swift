@@ -58,9 +58,14 @@ class ToolbarTests: BaseTestCase {
         XCTAssertTrue(app.buttons["Forward"].isEnabled)
 
         // Open new tab and then go back to previous tab to test navigation buttons.
-        navigator.goto(NewTabScreen)
+        if isiPad() == true {
+            app.buttons["New Tab"].tap()
+            app.buttons["TopTabsViewController.tabsButton"].tap()
+        } else {
+            navigator.goto(NewTabScreen)
+            navigator.goto(TabTray)
+        }
 
-        navigator.goto(TabTray)
         waitforExistence(app.collectionViews.cells[website1["label"]!])
         app.collectionViews.cells[website1["label"]!].tap()
         waitForValueContains(app.textFields["url"], value: website1["value"]!)
@@ -70,7 +75,11 @@ class ToolbarTests: BaseTestCase {
         XCTAssertTrue(app.buttons["Forward"].isEnabled)
 
         navigator.nowAt(BrowserTab)
-        navigator.goto(TabTray)
+        if isiPad() == true {
+            app.buttons["TopTabsViewController.tabsButton"].tap()
+        } else {
+            navigator.goto(TabTray)
+        }
         waitforExistence(app.collectionViews.cells[website1["label"]!])
         app.collectionViews.cells[website1["label"]!].swipeRight()
 
