@@ -447,8 +447,47 @@ class Tab: NSObject {
     }
 
     func setNightMode(_ enabled: Bool) {
-        webView?.evaluateJavaScript("window.__firefox__.NightMode.setEnabled(\(enabled))", completionHandler: nil)
+        
+        if(enabled)
+        {
+            insertCSSString();
+        }
+        else
+        {
+            removeCss();
+        }
+        
+        // webView?.evaluateJavaScript("window.__firefox__.NightMode.setEnabled(\(enabled))", completionHandler: nil)
     }
+    
+    
+    func insertCSSString() {
+        let cssString : String = "html, body, div, span, applet, object, iframe," +
+            "h1, h2, h3, h4, h5, h6, p, blockquote, pre," +
+            "abbr, acronym, address, big, cite, code," +
+            "del, dfn, em, img, ins, kbd, q, s, samp," +
+            "small, strike, strong, sub, sup, tt, var," +
+            "b, u, i, center," +
+            "dl, dt, dd, ol, ul, li" +
+            "fieldset, form, label, legend," +
+            "table, caption, tbody, tfoot, thead, tr, th, td," +
+            "article, aside, canvas, details, embed," +
+            "figure, figcaption, footer, header, hgroup," +
+            "menu, nav, output, ruby, section, summary," +
+            "time, mark, audio, video { background-color: #252626 !important; color: #c0c0c0 !important; } " +
+            "a {  background-color: #252626; color: #7fd7ff !important } " +
+        "a:visited { background-color: #252626; color: #ffafff !important }"
+        let jsString = "var style = document.createElement('style'); style.innerHTML = '\(cssString)'; document.head.appendChild(style);"
+        webView?.evaluateJavaScript(jsString, completionHandler: nil)
+    }
+    
+    func removeCss()
+    {
+        let scriptContent = "var element = document.getElementById('style'); style.innerHTML = 'None'";
+        
+        webView?.evaluateJavaScript(scriptContent, completionHandler: nil)
+    }
+    
 
     func injectUserScriptWith(fileName: String, type: String = "js", injectionTime: WKUserScriptInjectionTime = .atDocumentEnd, mainFrameOnly: Bool = true) {
         guard let webView = self.webView else {
