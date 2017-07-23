@@ -20,8 +20,8 @@ protocol TabLocationViewDelegate {
 }
 
 struct TabLocationViewUX {
-    static let HostFontColor = UIColor.black
-    static let BaseURLFontColor = UIColor.gray
+    static let HostFontColor = UIColor(rgb: 0xc0c0c0) //UIColor.black
+    static let BaseURLFontColor = UIColor(rgb: 0x252626) // UIColor.gray
     static let BaseURLPitch = 0.75
     static let HostPitch = 1.0
     static let LocationContentInset = 8

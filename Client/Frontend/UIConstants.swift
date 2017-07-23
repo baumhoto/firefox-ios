@@ -37,15 +37,15 @@ public struct UIConstants {
     static let HighlightColor = UIColor(red: 205/255, green: 223/255, blue: 243/255, alpha: 0.9)
     static let HighlightText = UIColor(red: 42/255, green: 121/255, blue: 213/255, alpha: 1.0)
 
-    static let PanelBackgroundColor = UIColor.white
+    static let PanelBackgroundColor = UIColor(rgb: 0x252626)
     static let SeparatorColor = UIColor(rgb: 0xcccccc)
     static let HighlightBlue = UIColor(red:76/255, green:158/255, blue:255/255, alpha:1)
     static let DestructiveRed = UIColor(red: 255/255, green: 64/255, blue: 0/255, alpha: 1.0)
     static let BorderColor = UIColor.black.withAlphaComponent(0.25)
-    static let BackgroundColor = UIColor(red: 0.21, green: 0.23, blue: 0.25, alpha: 1)
+    static let BackgroundColor = UIColor(rgb: 0x252626) //UIColor(red: 0.21, green: 0.23, blue: 0.25, alpha: 1)
 
     // These colours are used on the Menu
-    static let MenuToolbarBackgroundColorNormal = UIColor(red: 241/255, green: 241/255, blue: 241/255, alpha: 1.0)
+    static let MenuToolbarBackgroundColorNormal = UIColor(rgb: 0x252626) // UIColor(red: 241/255, green: 241/255, blue: 241/255, alpha: 1.0)
     static let MenuToolbarBackgroundColorPrivate = UIColor(red: 74/255, green: 74/255, blue: 74/255, alpha: 1.0)
     static let MenuToolbarTintColorNormal = BackgroundColor
     static let MenuToolbarTintColorPrivate = UIColor.white
@@ -57,7 +57,7 @@ public struct UIConstants {
     // settings
     static let TableViewHeaderBackgroundColor = UIColor(red: 242/255, green: 245/255, blue: 245/255, alpha: 1.0)
     static let TableViewHeaderTextColor = UIColor(red: 130/255, green: 135/255, blue: 153/255, alpha: 1.0)
-    static let TableViewRowTextColor = UIColor(red: 53.55/255, green: 53.55/255, blue: 53.55/255, alpha: 1.0)
+    static let TableViewRowTextColor = UIColor(rgb: 0xc0c0c0) //UIColor(red: 53.55/255, green: 53.55/255, blue: 53.55/255, alpha: 1.0)
     static let TableViewDisabledRowTextColor = UIColor.lightGray
     static let TableViewSeparatorColor = UIColor(rgb: 0xD1D1D4)
     static let TableViewHeaderFooterHeight = CGFloat(44)
@@ -80,4 +80,17 @@ public struct UIConstants {
 
     static let OKString = NSLocalizedString("OK", comment: "OK button")
     static let CancelString = NSLocalizedString("Cancel", comment: "Label for Cancel button")
+    
+    // URLBarView
+    static let TextFieldBorderColor = UIColor(rgb: 0xBBBBBB)
+    static let TextFieldActiveBorderColor = UIColor(rgb: 0x4A90E2)
+    static let TextFieldPrivateModeTextColor = UIColor.white
+    static let ProgressTintColor = UIColor(red:1, green:0.32, blue:0, alpha:1)
+    static let TextFieldTextColor = UIColor(rgb: 0xc0c0c0)//UIColor.black
+    static let ButtonTintColor = UIColor.darkGray
+    static let ButtonTextColor = UIColor.black
+    static let KeyboardAppearance = UIKeyboardAppearance.dark
+    
+    // Tab
+    static let WebViewBackgroundColor = UIColor(rgb: 0x252626)//UIColor.lightGray
 }

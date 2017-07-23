@@ -11,8 +11,6 @@ import XCGLogger
 private let log = Logger.browserLogger
 
 struct URLBarViewUX {
-    static let TextFieldBorderColor = UIColor(rgb: 0xBBBBBB)
-    static let TextFieldActiveBorderColor = UIColor(rgb: 0x4A90E2)
     static let TextFieldContentInset = UIOffsetMake(9, 5)
     static let LocationLeftPadding = 5
     static let LocationHeight = 28
@@ -27,7 +25,8 @@ struct URLBarViewUX {
     static let URLBarMinimumOffsetToAnimate: CGFloat = 30
     // buffer so we dont see edges when animation overshoots with spring
     static let URLBarCurveBounceBuffer: CGFloat = 8
-    static let ProgressTintColor = UIColor(red:1, green:0.32, blue:0, alpha:1)
+    
+    // static let ProgressTintColor = UIColor(red:1, green:0.32, blue:0, alpha:1)
 
     static let TabsButtonRotationOffset: CGFloat = 1.5
     static let TabsButtonHeight: CGFloat = 18.0
@@ -39,16 +38,16 @@ struct URLBarViewUX {
         theme.borderColor = UIConstants.PrivateModeLocationBorderColor
         theme.activeBorderColor = UIConstants.PrivateModePurple
         theme.tintColor = UIConstants.PrivateModePurple
-        theme.textColor = UIColor.white
+        theme.textColor = UIConstants.TextFieldPrivateModeTextColor
         theme.buttonTintColor = UIConstants.PrivateModeActionButtonTintColor
         themes[Theme.PrivateMode] = theme
 
         theme = Theme()
-        theme.borderColor = TextFieldBorderColor
-        theme.activeBorderColor = TextFieldActiveBorderColor
-        theme.tintColor = ProgressTintColor
-        theme.textColor = UIColor.black
-        theme.buttonTintColor = UIColor.darkGray
+        theme.borderColor = UIConstants.TextFieldBorderColor
+        theme.activeBorderColor = UIConstants.TextFieldActiveBorderColor
+        theme.tintColor = UIConstants.ProgressTintColor
+        theme.textColor = UIConstants.TextFieldTextColor
+        theme.buttonTintColor = UIConstants.ButtonTintColor
         themes[Theme.NormalMode] = theme
 
         return themes
@@ -78,14 +77,14 @@ protocol URLBarDelegate: class {
 
 class URLBarView: UIView {
     // Additional UIAppearance-configurable properties
-    dynamic var locationBorderColor: UIColor = URLBarViewUX.TextFieldBorderColor {
+    dynamic var locationBorderColor: UIColor = UIConstants.TextFieldBorderColor {
         didSet {
             if !inOverlayMode {
                 locationContainer.layer.borderColor = locationBorderColor.cgColor
             }
         }
     }
-    dynamic var locationActiveBorderColor: UIColor = URLBarViewUX.TextFieldActiveBorderColor {
+    dynamic var locationActiveBorderColor: UIColor = UIConstants.TextFieldActiveBorderColor {
         didSet {
             if inOverlayMode {
                 locationContainer.layer.borderColor = locationActiveBorderColor.cgColor
@@ -154,7 +153,7 @@ class URLBarView: UIView {
 
     fileprivate lazy var progressBar: UIProgressView = {
         let progressBar = UIProgressView()
-        progressBar.progressTintColor = URLBarViewUX.ProgressTintColor
+        progressBar.progressTintColor = UIConstants.ProgressTintColor
         progressBar.alpha = 0
         progressBar.isHidden = true
         return progressBar
@@ -162,7 +161,7 @@ class URLBarView: UIView {
 
     fileprivate lazy var cancelButton: UIButton = {
         let cancelButton = InsetButton()
-        cancelButton.setTitleColor(UIColor.black, for: UIControlState())
+        cancelButton.setTitleColor(UIConstants.ButtonTextColor, for: UIControlState())
         let cancelTitle = NSLocalizedString("Cancel", comment: "Label for Cancel button")
         cancelButton.setTitle(cancelTitle, for: UIControlState())
         cancelButton.titleLabel?.font = UIConstants.DefaultChromeFont
@@ -378,7 +377,8 @@ class URLBarView: UIView {
         locationTextField.accessibilityIdentifier = "address"
         locationTextField.accessibilityLabel = NSLocalizedString("Address and Search", comment: "Accessibility label for address and search field, both words (Address, Search) are therefore nouns.")
         locationTextField.attributedPlaceholder = self.locationView.placeholder
-
+        locationTextField.keyboardAppearance = UIConstants.KeyboardAppearance
+        
         locationContainer.addSubview(locationTextField)
 
         locationTextField.snp.makeConstraints { make in
